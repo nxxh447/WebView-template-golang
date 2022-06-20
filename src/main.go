@@ -1,28 +1,28 @@
 package main
+
 import (
-  "github.com/webview/webview"
-  "io/ioutil"
+	"github.com/webview/webview"
+	"io/ioutil"
 )
 
 func main() {
-  /* === VARIABLES FOR EASY EDITING === */
-  var (
-    winWidth      int = 1920
-    winHieght     int = 1080
-    winTitle      string = "example"
-  );
+	// variables for easy editing
+	var (
+		winWidth      int = 1920
+    	winHieght     int = 1080
+    	winTitle      string = "example"
+  	);
   
-  /* === BASIC-WINDOW-CONFIG === */
-  w := webview.New(true); defer w.Destroy();
-  w.SetTitle(winTitle); w.SetSize(winWidth, winHeight, webview.HintNone);
+  	// basic window config
+  	w := webview.New(true); defer w.Destroy();
+  	w.SetTitle(winTitle); w.SetSize(winWidth, winHeight, webview.HintNone);
   
-  /* === WINDOW-CONTENT-&-DISPLAY-METHODS === */
-  w.Navigate(`data:text/html, <p>example</p>`); // for displaying html (inline)
-  w.Navigate("https://example.com"); // for displaying a website
+  	// methods fot content rendering
+  	w.Navigate(`data:text/html, <p>example</p>`); // from inline
+  	w.Navigate("https://example.com"); // from URL
+
+	file, _ := ioutil.ReadFile("example.html"); // from local file (pt.1)
+ 	w.Navigate(`data:text/html,` + string(file)); // (pt.2)
   
-  file, _ := ioutil.ReadFile("example.html"); // for displaying html (from local file) (pt.1)
-  sF := string(file); // (pt.2)
-  w.Navigate(`data:text/html,` + sF); // (pt.3)
-  
-  w.Run(); // run the application!
+  	w.Run(); // run the application!
 }
